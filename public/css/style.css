@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.dash-side {
+  background-color: #2a9d8f;
+  height: 100%;
+  width: 16%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.dash-logo {
+  width: 40%;
+}
+
+.main {
+  margin-left: 16%;
+}
+
+.main .nav-con {
+  color: #2a9d8f;
+}
+
+.main .btn-col {
+  background-color: #2a9d8f;
+}
