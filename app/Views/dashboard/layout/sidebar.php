@@ -12,13 +12,13 @@
             </a>
         </li>
         <li>
-            <a href="<?= base_url('dashboard/barang'); ?>" class="nav-link text-white">
+            <a href="<?= base_url('barang'); ?>" class="nav-link text-white">
                 <i class="bi-people-fill me-1"></i>
                 Barang
             </a>
         </li>
         <li>
-            <a href="<?= base_url('dashboard/peminjaman'); ?>" class="nav-link text-white">
+            <a href="<?= base_url('peminjaman'); ?>" class="nav-link text-white">
                 <i class="bi-archive-fill me-1"></i>
                 Peminjaman
             </a>

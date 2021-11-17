@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-6">
         <h1>Tambah data</h1>
-        <form action="<?= base_url('dashboard/savebarang'); ?>" method="POST" enctype="multipart/form-data">
+        <form action="<?= base_url('barang/savebarang'); ?>" method="POST" enctype="multipart/form-data">
             <?= csrf_field(); ?>
             <div class="mb-3 row">
                 <label for="nama_barang" class="col-sm-2 col-form-label">Nama Barang</label>

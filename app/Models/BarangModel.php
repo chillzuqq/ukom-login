@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class barangModel extends Model
 {
     protected $table = 'barang';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_barang';
 
     protected $allowedFields = ['nama_barang', 'spesifikasi', 'lokasi', 'kondisi', 'jumlah_barang', 'sumber_dana'];
 

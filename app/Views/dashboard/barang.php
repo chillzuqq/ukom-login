@@ -8,7 +8,7 @@
   <div class="col d-flex justify-content-end">
     <button class="btn btn-col m-1">
       <img src="https://img.icons8.com/ios-glyphs/25/ffffff/add.png" />
-      <a href="<?= base_url('dashboard/createbarang'); ?>" class="text-decoration-none text-white">
+      <a href="<?= base_url('barang/createbarang'); ?>" class="text-decoration-none text-white">
         Tambah
       </a>
     </button>
@@ -44,7 +44,9 @@
             <img src="https://img.icons8.com/ios-glyphs/20/E9C46A/pencil--v1.png" />
           </button>
           <button class="btn btn-sm">
-            <img src="https://img.icons8.com/ios-glyphs/20/E76F51/trash--v1.png" />
+            <a href="/barang/delete/<?= $data['id_barang']; ?>">
+              <img src="https://img.icons8.com/ios-glyphs/20/E76F51/trash--v1.png" />
+            </a>
           </button>
         </td>
       </tr>

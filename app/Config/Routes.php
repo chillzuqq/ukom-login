@@ -36,6 +36,8 @@ $routes->get('/login', 'Login::index');
 $routes->get('/logout', 'Login::logout');
 // dashboard
 $routes->get('/dashboard', 'Dashboard::index');
+// barang
+$routes->delete('barang/delete/(:any)', 'Barang::delete/$1');
 
 /*
  * --------------------------------------------------------------------
