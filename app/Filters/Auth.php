@@ -11,9 +11,9 @@ class Auth implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // jika user belum login
-        if (!session()->get('login')) {
+        if (is_null(session()->get('login'))) {
             // maka redirct ke halaman login
-            return redirect()->to('login');
+            return redirect()->to(base_url('login'));
         }
     }
 

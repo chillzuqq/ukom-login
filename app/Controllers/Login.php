@@ -23,31 +23,33 @@ class Login extends BaseController
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('/login');
+        return redirect()->to(base_url('login'));
     }
 
     public function auth()
     {
         $this->user = $this->request->getVar('username');
         $this->pass = $this->request->getVar('password');
-        $check = $this->UserModel
+        $data = $this->UserModel
             ->where([
                 'username' => $this->user,
-                'password' => $this->pass
             ])
             ->first();
+        if($data){
+            $password = $data['password'];
+            $verify_pass = password_verify($this->pass, $password);
+            if ($verify_pass) {
+                $msg = [
+                    'login' => true,
+                    'nama' => $data['nama'],
+                    'level' => $data['level']
+                ];
 
-        if ($check > 0) {
-            $msg = [
-                'login' => true,
-                'nama' => $check['nama'],
-                'level' => $check['level']
-            ];
-
-            $this->response->setJSON($msg);
-            return redirect()->to('/dashboard');
-        } else {
+                $this->response->setJSON($msg);
+                return redirect()->to(base_url('dashboard'));
+            } else {
             return $this->response->setJSON('login gagal');
+            }
         }
     }
 }

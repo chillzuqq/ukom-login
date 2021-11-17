@@ -19,7 +19,7 @@
       <div class="container my-5 ms-auto bg-white p-3">
         <div class="row">
           <div class="col">
-            <h1>Data User</h1>
+            <h1><?= $table_title; ?></h1>
           </div>
           <div class="col d-flex justify-content-end">
             <button class="btn btn-col m-1">
@@ -36,18 +36,22 @@
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Nama</th>
-              <th scope="col">Username</th>
-              <th scope="col">Level</th>
+              <th scope="col">Nama Barang</th>
+              <th scope="col">Lokasi</th>
+              <th scope="col">Jumlah Barang</th>
+              <th scope="col">Sumber Dana</th>
               <th scope="col">Aksi</th>
             </tr>
           </thead>
           <tbody>
+            <?php $i = 1?>
+            <?php foreach($barang as $data): ?>
             <tr>
-              <th scope="row">1</th>
-              <td>Nana Sukmana</td>
-              <td>admin</td>
-              <td>Administrator</td>
+              <th scope="row"><?= $i++;?></th>
+              <td><?= $data['nama_barang']; ?></td>
+              <td><?= $data['nama_lokasi']; ?></td>
+              <td><?= $data['jumlah_barang']; ?></td>
+              <td><?= $data['nama_sumber']; ?></td>
               <td>
                 <button class="btn btn-sm">
                   <img src="https://img.icons8.com/ios-glyphs/20/264653/visible.png" />
@@ -60,6 +64,7 @@
                 </button>
               </td>
             </tr>
+            <?php endforeach; ?>
           </tbody>
         </table>
       </div>

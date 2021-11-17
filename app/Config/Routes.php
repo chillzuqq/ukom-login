@@ -36,7 +36,7 @@ $routes->get('/login', 'Login::index');
 $routes->get('/logout', 'Login::logout');
 $routes->post('/auth', 'Login::auth');
 // dashboard
-$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
+$routes->get('/dashboard', 'Dashboard::index');
 
 /*
  * --------------------------------------------------------------------
