@@ -34,7 +34,6 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'Login::index');
 $routes->get('/logout', 'Login::logout');
-$routes->post('/auth', 'Login::auth');
 // dashboard
 $routes->get('/dashboard', 'Dashboard::index');
 
