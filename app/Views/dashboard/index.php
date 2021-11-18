@@ -2,7 +2,6 @@
 
 <?= $this->section('content'); ?>
 
-
 <div class="row">
   <div class="col">
     <h1>Data User</h1>

@@ -7,6 +7,6 @@ use CodeIgniter\Model;
 class LokasiModel extends Model
 {
     protected $table            = 'lokasi';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_lokasi';
     protected $allowedFields    = ['nama_lokasi', 'penanggung_jawab', 'keterangan'];
 }

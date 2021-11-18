@@ -10,7 +10,7 @@
     <button class="btn btn-col m-1">
       <img src="https://img.icons8.com/ios-glyphs/25/ffffff/add.png" />
       <a href="<?= base_url('barang/createbarang'); ?>" class="text-decoration-none text-white">
-        Tambah
+        Buat Peminjaman
       </a>
     </button>
   </div>
@@ -21,36 +21,24 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Nama Barang</th>
-      <th scope="col">Lokasi</th>
-      <th scope="col">Jumlah Barang</th>
-      <th scope="col">Sumber Dana</th>
+      <th scope="col">Peminjam</th>
+      <th scope="col">Barang Pinjam</th>
+      <th scope="col">Jumlah Pinjam</th>
       <th scope="col">Aksi</th>
     </tr>
   </thead>
   <tbody>
     <?php $i = 1 ?>
-    <?php foreach ($barang as $data) : ?>
+    <?php foreach ($pinjam as $data) : ?>
       <tr>
         <th scope="row"><?= $i++; ?></th>
+        <td><?= $data['nama']; ?></td>
         <td><?= $data['nama_barang']; ?></td>
-        <td><?= $data['nama_lokasi']; ?></td>
-        <td><?= $data['jumlah_barang']; ?></td>
-        <td><?= $data['nama_sumber']; ?></td>
+        <td><?= $data['jml_pinjam']; ?></td>
         <td>
           <button class="btn btn-sm">
-            <a href="/barang/detail/<?= $data['id_barang']; ?>">
+            <a href="/peminjaman/detail/<?= $data['id_pinjam']; ?>">
               <img src="https://img.icons8.com/ios-glyphs/20/264653/visible.png" />
-            </a>
-          </button>
-          <button class="btn btn-sm">
-            <a href="/barang/edit/<?= $data['id_barang']; ?>">
-              <img src="https://img.icons8.com/ios-glyphs/20/E9C46A/pencil--v1.png" />
-            </a>
-          </button>
-          <button class="btn btn-sm" onclick="alert('Apakah anda yakin menghapus data ini?')">
-            <a href="/barang/delete/<?= $data['id_barang']; ?>">
-              <img src="https://img.icons8.com/ios-glyphs/20/E76F51/trash--v1.png" />
             </a>
           </button>
         </td>

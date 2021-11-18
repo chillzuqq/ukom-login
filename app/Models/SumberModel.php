@@ -7,6 +7,6 @@ use CodeIgniter\Model;
 class SumberModel extends Model
 {
     protected $table            = 'sumber_dana';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_sumber';
     protected $allowedFields    = ['nama_sumber', 'keterangan'];
 }

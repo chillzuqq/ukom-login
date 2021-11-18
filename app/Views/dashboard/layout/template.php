@@ -28,7 +28,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-light bg-white">
             <div class="container-fluid">
-                <a class="navbar-brand ms-auto" href="#">
+                <a class="navbar-brand ms-auto" href="<?= base_url(); ?>/logout">
                     <img src="https://img.icons8.com/ios-glyphs/25/2a9d8f/running.png" />
                     Logout
                 </a>
@@ -37,6 +37,18 @@
 
         <!-- Content -->
         <div class="container">
+            <?php if (session()->getFlashdata('logged')) : ?>
+                <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                    <strong>Selamat Datang <?= session()->get('nama'); ?>!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+            <?php if (session()->getFlashdata('message')) : ?>
+                <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                    <?= session()->getFlashdata('message'); ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
             <div class="container my-5 ms-auto bg-white p-3">
                 <?= $this->renderSection('content'); ?>
             </div>
@@ -45,6 +57,19 @@
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+        <script>
+            function previewImg() {
+                const img = document.querySelector('#img');
+                const imgPreview = document.querySelector('.img-preview');
+
+                const imgFile = new FileReader();
+                imgFile.readAsDataURL(img.files[0]);
+
+                imgFile.onload = function(e) {
+                    imgPreview.src = e.target.result;
+                }
+            }
+        </script>
 </body>
 
 </html>

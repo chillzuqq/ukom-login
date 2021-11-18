@@ -32,7 +32,7 @@
         </div>
         <div class="col-6 form_section">
           <div class="form-wrapper container">
-            <form action="<?= base_url('login/auth'); ?>" method="POST">
+            <form action="<?= base_url(); ?>/login/auth" method="POST">
               <p class="form_title mb-4">Login</p>
               <div class="mb-3 input_wrapper">
                 <input type="text" class="form-control form_component mb-4" id="exampleInputUsername1" placeholder="Username" name="username" />

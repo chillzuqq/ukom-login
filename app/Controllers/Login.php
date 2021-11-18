@@ -6,9 +6,6 @@ use App\Models\UserModel;
 
 class Login extends BaseController
 {
-    protected $user;
-    protected $pass;
-    protected $level;
     protected $UserModel;
     public function __construct()
     {
@@ -22,40 +19,48 @@ class Login extends BaseController
 
     public function auth()
     {
-        //ambil value dari form login 
-        $this->user = $this->request->getVar('username');
-        $this->pass = $this->request->getVar('password');
+        // return dd($this->request->getVar());
+        $username = $this->request->getVar('username');
+        $password = md5($this->request->getVar('password'));
+        $dataUser = $this->UserModel->where('username', $username)->first();
+        // dd($username, $password, $dataUser);
 
-        //cari user
-        $data = $this->UserModel->where('username', $this->user)
-            ->first();
+        if ($dataUser) {
+            if ($this->UserModel->where('password', $username)) {
+                session()->set([
+                    'id' => $dataUser['id_user'],
+                    'username' => $dataUser['username'],
+                    'nama' => $dataUser['nama'],
+                    'logged_in' => TRUE
+                ]);
+                session()->setFlashdata('logged', 'Anda berhasil masuk');
+                return redirect()->to(base_url('barang'));
+                // $this->response->setJSON($msg);
+                // echo 'berhasil';
 
-        //validasi user
-        if ($data) {
-            //ambil data password user
-            $verify_pass = password_verify($this->pass,  $data['password']);
-
-            //validasi password  
-            if ($verify_pass) {
-                //buat session jika password benar
-                $session_user = [
-                    'id_user' => $data['id_user'],
-                    'nama' => $data['nama'],
-                    'username' => $data['username'],
-                    'login' => true
-                ];
-
-                session()->setJSON($session_user);
-                return redirect()->to(base_url('dashboard'));
             } else {
-                session()->setFlashdata('pesan', 'Password Anda Salah');
-                return redirect()->to(base_url('login'));
+                session()->setFlashdata('error', 'Username/Password Salah');
+                return redirect()->back();
             }
         } else {
-            session()->setFlashdata('pesan', 'Username Anda Salah');
-            return redirect()->to(base_url('login'));
+            session()->setFlashdata('error', 'anda adalah user lama, silakan resgistrasi kembali');
+            return redirect()->back();
         }
     }
+
+    // public function adduser()
+    // {
+    //     $data = [
+    //         'nama' => 'Faiq',
+    //         'username' => 'admin2',
+    //         'password' => password_hash('admin2', PASSWORD_DEFAULT),
+    //         'level' => 'U0'
+    //     ];
+    //     $save = $this->UserModel->save($data);
+    //     if ($save == true) {
+    //         echo 'berhasil';
+    //     }
+    // }
 
     public function logout()
     {
