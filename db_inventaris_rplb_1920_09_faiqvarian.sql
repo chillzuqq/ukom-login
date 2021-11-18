@@ -25,6 +25,7 @@ DELIMITER $$
 --
 -- Procedures
 --
+<<<<<<< HEAD
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addbarang` (IN `nama` VARCHAR(255), IN `spesifikasi` TEXT, IN `lokasi` CHAR(4), IN `kondisi` VARCHAR(20), IN `jumlah` INT(11), IN `sumber_dana` CHAR(4))  BEGIN
 DECLARE id_barang CHAR(8) DEFAULT 'BRG00001';
 ROLLBACK;
@@ -41,11 +42,30 @@ START TRANSACTION;
 SET id_lokasi = id_lokasi();
 INSERT INTO lokasi VALUES(id_lokasi, nama, penanggung_jawab, keterangan);
 COMMIT;
+=======
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addbarang` (IN `nama` VARCHAR(255), IN `spesifikasi` TEXT, IN `lokasi` CHAR(4), IN `kondisi` VARCHAR(20), IN `jumlah` INT(11), IN `sumber_dana` CHAR(4))  BEGIN
+DECLARE id_barang CHAR(8) DEFAULT 'BRG00001';
+ROLLBACK;
+START TRANSACTION;
+SET id_barang = id_barang();
+INSERT INTO barang VALUES(id_barang, nama, spesifikasi, lokasi, kondisi, jumlah, sumber_dana);
+COMMIT;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addlokasi` (IN `nama` VARCHAR(255), IN `penanggung_jawab` VARCHAR(255), IN `keterangan` TEXT)  BEGIN
+DECLARE id_lokasi CHAR(4) DEFAULT 'R001';
+ROLLBACK;
+START TRANSACTION;
+SET id_lokasi = id_lokasi();
+INSERT INTO lokasi VALUES(id_lokasi, nama, penanggung_jawab, keterangan);
+COMMIT;
+>>>>>>> d8711e2b86bcc1704a170b39fcdb915221e72aed
 END$$
 
 --
 -- Functions
 --
+<<<<<<< HEAD
 CREATE DEFINER=`root`@`localhost` FUNCTION `id_barang` () RETURNS CHAR(8) CHARSET utf8mb4 BEGIN
     DECLARE
         id_awal CHAR(8) DEFAULT 'BRG10001' ; DECLARE id_num CHAR(5) DEFAULT '00000' ; DECLARE id_hasil CHAR(8) DEFAULT 'BRG00000' ;
@@ -71,6 +91,33 @@ SET id_num = SUBSTR(id_awal, 2, 3);
 SET id_num = LPAD(id_num + 1, 3, 0);
 SET id_hasil = CONCAT("R", id_num);
 RETURN id_hasil;
+=======
+CREATE DEFINER=`root`@`localhost` FUNCTION `id_barang` () RETURNS CHAR(8) CHARSET utf8mb4 BEGIN
+    DECLARE
+        id_awal CHAR(8) DEFAULT 'BRG10001' ; DECLARE id_num CHAR(5) DEFAULT '00000' ; DECLARE id_hasil CHAR(8) DEFAULT 'BRG00000' ;
+    SELECT
+        MAX(id_barang)
+    INTO id_awal
+FROM
+    barang ;
+SET
+    id_num = SUBSTR(id_awal, 4, 5) ;
+SET
+    id_num = id_num + 1 ;
+SET
+    id_hasil = CONCAT("BRG", id_num) ; RETURN id_hasil ;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `id_lokasi` () RETURNS CHAR(4) CHARSET utf8mb4 BEGIN
+DECLARE id_awal CHAR(4) DEFAULT 'R001';
+DECLARE id_num CHAR(3) DEFAULT '000';
+DECLARE id_hasil CHAR(4) DEFAULT 'R000';
+SELECT MAX(id_lokasi) INTO id_awal FROM lokasi;
+SET id_num = SUBSTR(id_awal, 2, 3);
+SET id_num = LPAD(id_num + 1, 3, 0);
+SET id_hasil = CONCAT("R", id_num);
+RETURN id_hasil;
+>>>>>>> d8711e2b86bcc1704a170b39fcdb915221e72aed
 END$$
 
 DELIMITER ;

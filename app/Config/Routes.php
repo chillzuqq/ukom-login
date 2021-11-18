@@ -34,9 +34,18 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'Login::index');
 $routes->get('/logout', 'Login::logout');
-$routes->post('/auth', 'Login::auth');
 // dashboard
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
+// barang
+$routes->get('barang', 'Barang::index', ['filter' => 'auth']);
+$routes->delete('barang/delete/(:any)', 'Barang::delete/$1', ['filter' => 'auth']);
+$routes->get('barang/edit/(:any)', 'Barang::edit/$1', ['filter' => 'auth']);
+$routes->get('barang/detail/(:any)', 'Barang::detail/$1', ['filter' => 'auth']);
+//pinjam
+$routes->get('peminjaman', 'Peminjaman::index', ['filter' => 'auth']);
+$routes->get('peminjaman/detail/(:any)', 'Peminjaman::detail/$1', ['filter' => 'auth']);
+//lokasi
+$routes->get('lokasi', 'Lokasi::index', ['filter' => 'auth']);
 
 /*
  * --------------------------------------------------------------------
