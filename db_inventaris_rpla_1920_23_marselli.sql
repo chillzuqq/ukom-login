@@ -25,6 +25,7 @@ DELIMITER $$
 --
 -- Prosedur
 --
+<<<<<<< HEAD
 CREATE DEFINER=`root`@`localhost` PROCEDURE `tambahbarang` (IN `nama` VARCHAR(225), IN `spek` TEXT, IN `lokasi` CHAR(4), IN `kondisi` VARCHAR(20), IN `jumlah` INT, IN `sumber` CHAR(4))  BEGIN
 DECLARE getkode CHAR(8) DEFAULT 'BRG00001';
 DECLARE EXIT HANDLER FOR SQLEXCEPTION, SQLWARNING ROLLBACK;
@@ -41,11 +42,30 @@ START TRANSACTION;
 SET getkodelokasi = getnewlokasi();
 INSERT INTO lokasi VALUES(getkodelokasi, nama, penanggung_jawab, ket);
 COMMIT;
+=======
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tambahbarang` (IN `nama` VARCHAR(225), IN `spek` TEXT, IN `lokasi` CHAR(4), IN `kondisi` VARCHAR(20), IN `jumlah` INT, IN `sumber` CHAR(4))  BEGIN
+DECLARE getkode CHAR(8) DEFAULT 'BRG00001';
+DECLARE EXIT HANDLER FOR SQLEXCEPTION, SQLWARNING ROLLBACK;
+START TRANSACTION;
+SET getkode = getnewid();
+INSERT INTO barang VALUES(getkode, nama, spek, lokasi, kondisi, jumlah, sumber);
+COMMIT;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tambahlokasi` (`nama` VARCHAR(255), `penanggung_jawab` VARCHAR(225), `ket` TEXT)  BEGIN
+DECLARE getkodelokasi CHAR(4) DEFAULT 'R001';
+DECLARE EXIT HANDLER FOR SQLEXCEPTION, SQLWARNING ROLLBACK;
+START TRANSACTION;
+SET getkodelokasi = getnewlokasi();
+INSERT INTO lokasi VALUES(getkodelokasi, nama, penanggung_jawab, ket);
+COMMIT;
+>>>>>>> d8711e2b86bcc1704a170b39fcdb915221e72aed
 END$$
 
 --
 -- Fungsi
 --
+<<<<<<< HEAD
 CREATE DEFINER=`root`@`localhost` FUNCTION `getnewid` () RETURNS CHAR(8) CHARSET utf8mb4 BEGIN
 DECLARE kodeterakhir CHAR(8) DEFAULT 'BRG10001';
 DECLARE kodeangka CHAR(5) DEFAULT '00000';
@@ -66,6 +86,28 @@ SET kode_angka = SUBSTR(kode_terakhir, 2, 3);
 SET kode_angka = LPAD(kode_angka + 1, 3, 0);
 SET kode_baru = CONCAT("R", kode_angka);
 RETURN kode_baru;
+=======
+CREATE DEFINER=`root`@`localhost` FUNCTION `getnewid` () RETURNS CHAR(8) CHARSET utf8mb4 BEGIN
+DECLARE kodeterakhir CHAR(8) DEFAULT 'BRG10001';
+DECLARE kodeangka CHAR(5) DEFAULT '00000';
+DECLARE kodebaru CHAR(8) DEFAULT 'BRG00000';
+SELECT MAX(id_barang) INTO kodeterakhir FROM barang;
+SET kodeangka = SUBSTR(kodeterakhir, 4, 5);
+SET kodeangka = kodeangka + 1;
+SET kodebaru = CONCAT("BRG",kodeangka);
+RETURN kodebaru;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getnewlokasi` () RETURNS CHAR(4) CHARSET utf8mb4 BEGIN
+DECLARE kode_terakhir CHAR(4) DEFAULT 'R001';
+DECLARE kode_angka CHAR(3) DEFAULT '000';
+DECLARE kode_baru CHAR(4) DEFAULT 'R000';
+SELECT MAX(id_lokasi) INTO kode_terakhir FROM lokasi;
+SET kode_angka = SUBSTR(kode_terakhir, 2, 3);
+SET kode_angka = LPAD(kode_angka + 1, 3, 0);
+SET kode_baru = CONCAT("R", kode_angka);
+RETURN kode_baru;
+>>>>>>> d8711e2b86bcc1704a170b39fcdb915221e72aed
 END$$
 
 DELIMITER ;
@@ -120,31 +162,56 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `spesifikasi`, `lokasi`, `kond
 -- Trigger `barang`
 --
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `trigger_insert_barang_stok_marselli_xiirpla` AFTER INSERT ON `barang` FOR EACH ROW BEGIN
 DECLARE jml_keluar INT DEFAULT 0;
 DECLARE total_barang INT DEFAULT 0;
 SET total_barang = NEW.jumlah_barang - jml_keluar;
 INSERT INTO stok VALUES(NEW.id_barang, NEW.jumlah_barang, jml_keluar, total_barang);
+=======
+CREATE TRIGGER `trigger_insert_barang_stok_marselli_xiirpla` AFTER INSERT ON `barang` FOR EACH ROW BEGIN
+DECLARE jml_keluar INT DEFAULT 0;
+DECLARE total_barang INT DEFAULT 0;
+SET total_barang = NEW.jumlah_barang - jml_keluar;
+INSERT INTO stok VALUES(NEW.id_barang, NEW.jumlah_barang, jml_keluar, total_barang);
+>>>>>>> d8711e2b86bcc1704a170b39fcdb915221e72aed
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `trigger_log_delete_barang_marselli_xiirpla` BEFORE DELETE ON `barang` FOR EACH ROW BEGIN
 INSERT INTO barang_log VALUES(0, 'Delete Data', OLD.nama_barang, OLD.spesifikasi, OLD.lokasi, OLD.kondisi, OLD.jumlah_barang, OLD.sumber_dana, NOW());
 DELETE FROM stok WHERE id_barang = OLD.id_barang;
+=======
+CREATE TRIGGER `trigger_log_delete_barang_marselli_xiirpla` BEFORE DELETE ON `barang` FOR EACH ROW BEGIN
+INSERT INTO barang_log VALUES(0, 'Delete Data', OLD.nama_barang, OLD.spesifikasi, OLD.lokasi, OLD.kondisi, OLD.jumlah_barang, OLD.sumber_dana, NOW());
+DELETE FROM stok WHERE id_barang = OLD.id_barang;
+>>>>>>> d8711e2b86bcc1704a170b39fcdb915221e72aed
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `trigger_log_insert_barang_marselli_xiirpla` AFTER INSERT ON `barang` FOR EACH ROW BEGIN
 INSERT INTO barang_log(id_log, nama_event, nama_barang, spesifikasi, lokasi, kondisi, jumlah_barang, sumber_dana, waktu_event)
 VALUES(id_log, 'tambah', NEW.nama_barang, NEW.spesifikasi, NEW.lokasi, NEW.kondisi, NEW.jumlah_barang, NEW.sumber_dana, now());
+=======
+CREATE TRIGGER `trigger_log_insert_barang_marselli_xiirpla` AFTER INSERT ON `barang` FOR EACH ROW BEGIN
+INSERT INTO barang_log(id_log, nama_event, nama_barang, spesifikasi, lokasi, kondisi, jumlah_barang, sumber_dana, waktu_event)
+VALUES(id_log, 'tambah', NEW.nama_barang, NEW.spesifikasi, NEW.lokasi, NEW.kondisi, NEW.jumlah_barang, NEW.sumber_dana, now());
+>>>>>>> d8711e2b86bcc1704a170b39fcdb915221e72aed
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `trigger_log_update_barang_marselli_xiirpla` BEFORE UPDATE ON `barang` FOR EACH ROW BEGIN
 INSERT INTO barang_log VALUES(0, 'Edit Data', NEW.nama_barang, NEW.spesifikasi, NEW.lokasi, NEW.kondisi, NEW.jumlah_barang, NEW.sumber_dana, NOW());
+=======
+CREATE TRIGGER `trigger_log_update_barang_marselli_xiirpla` BEFORE UPDATE ON `barang` FOR EACH ROW BEGIN
+INSERT INTO barang_log VALUES(0, 'Edit Data', NEW.nama_barang, NEW.spesifikasi, NEW.lokasi, NEW.kondisi, NEW.jumlah_barang, NEW.sumber_dana, NOW());
+>>>>>>> d8711e2b86bcc1704a170b39fcdb915221e72aed
 END
 $$
 DELIMITER ;
